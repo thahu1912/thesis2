@@ -1,7 +1,7 @@
 import torch
 
 from pytorch_metric_learning.utils import loss_and_miner_utils as lmu
-from pytorch_metric_learning.miners.base_miner import BaseTupleMiner
+from .custom_miners import BaseTupleMiner
 
 
 class TripletMarginMiner(BaseTupleMiner):

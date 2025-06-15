@@ -39,7 +39,7 @@ class GeM(nn.Module):
         self.eps = eps
 
     def forward(self, x):
-        return LF.gem(x, p=self.p, eps=self.eps)
+        return LF.gem(x, p=int(self.p.item()), eps=self.eps)
 
     def __repr__(self):
         return (
@@ -62,7 +62,7 @@ class GeMmp(nn.Module):
         self.eps = eps
 
     def forward(self, x):
-        return LF.gem(x, p=self.p.unsqueeze(-1).unsqueeze(-1), eps=self.eps)
+        return LF.gem(x, p=int(self.p.unsqueeze(-1).unsqueeze(-1).item()), eps=self.eps)
 
     def __repr__(self):
         return (
