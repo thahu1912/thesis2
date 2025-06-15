@@ -95,14 +95,14 @@ class BaseDataset(data.Dataset):
                         else dbData[["easting", "northing"]].values.reshape(-1, 2)
                     )
                     casDb = (
-                        np.concatenate([casDb, dbData["angle"].values], axis=0)
+                        np.concatenate([np.asarray(casDb), dbData["angle"].values], axis=0)
                         if len(casDb) > 0
                         else dbData["angle"].values
                     )
 
                 # find positive images for training
                 neigh = NearestNeighbors(algorithm="brute")
-                neigh.fit(utmDb)
+                neigh.fit(np.asarray(utmDb))
                 _, pI = neigh.radius_neighbors(utmQ, self.posDistThr)
 
                 if self.mode == "train":
@@ -132,7 +132,7 @@ class BaseDataset(data.Dataset):
                     else utmDb
                 )
                 self.casDb = (
-                    np.concatenate([self.casDb, casDb], axis=0)
+                    np.concatenate([np.asarray(self.casDb), casDb], axis=0)
                     if hasattr(self, "casDb")
                     else casDb
                 )

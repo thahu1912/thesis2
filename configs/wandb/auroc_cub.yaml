@@ -15,4 +15,4 @@ parameters:
   max_pairs:
     values: [5, 30]
   config: 
-    value: '../configs/cub200/laplace_online_arccos_fix.yaml'
+    value: '../configs/cub200/bayesian.yaml'
