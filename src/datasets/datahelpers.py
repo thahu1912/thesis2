@@ -39,10 +39,8 @@ def pil_loader(path):
 
 
 def accimage_loader(path):
-    import accimage
-
     try:
-        return accimage.Image(path)
+        return Image.open(path)
     except IOError:
         # Potentially a decoding problem, fall back to PIL.Image
         return pil_loader(path)
@@ -58,7 +56,7 @@ def default_loader(path):
 
 
 def imresize(img, imsize):
-    img.thumbnail((imsize, imsize), Image.ANTIALIAS)
+    img.thumbnail((imsize, imsize), Image.Resampling.LANCZOS)
     return img
 
 

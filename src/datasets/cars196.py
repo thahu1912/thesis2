@@ -49,7 +49,7 @@ class TrainDataset(Dataset):
     def __getitem__(self, idx):
 
         image = self.transform(
-            Image.open(os.path.join(self.image_path, self.images[idx])).convert("RGB")
+            Image.open(os.path.join(self.image_path, str(self.images[idx]))).convert("RGB")
         )
         label = self.labels[idx]
 
@@ -97,7 +97,7 @@ class TestDataset(Dataset):
     def __getitem__(self, idx):
 
         image = self.transform(
-            Image.open(os.path.join(self.image_path, self.images[idx])).convert("RGB")
+            Image.open(os.path.join(self.image_path, str(self.images[idx]))).convert("RGB")
         )
         label = self.labels[idx]
 

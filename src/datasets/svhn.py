@@ -16,7 +16,7 @@ class TrainDataset(data.Dataset):
     def __init__(self, root):
 
         self.data = torchvision.datasets.SVHN(
-            root, train=True, download=True, transform=transform
+            root, split="train", download=True, transform=transform
         )
 
     def __len__(self):
