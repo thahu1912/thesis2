@@ -1,0 +1,12 @@
+arch: squeezenet1_1
+pool: gem
+loss: triplet
+margin: 0.2
+optimizer:
+  name: adam
+  lr: 1e-5
+  weight_decay: 0.001
+batch_size: 25
+dropout_rate: 0.0
+use_mc_dropout: false
+# Add other fields as needed from deterministic.yaml 

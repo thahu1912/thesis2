@@ -1,0 +1,50 @@
+# model specific
+model: "bayesian"
+resume: ""
+arch: "vgg19"
+pool: "gem"
+whitening: True
+pretrained: True
+latent_dim: 2048
+type_of_triplets: "hard"
+
+# logging
+log_dir: "../results"
+check_val_every_n_epoch: 1
+
+# training
+train: True
+epochs: 20
+lr: 1e-5
+weight_decay: 0.001
+batch_size: 25
+loss: "bayesian_triplet"
+margin: 0.3
+varPrior: 1.0
+kl_scale_factor: 1e-6
+distribution: "gauss"
+
+# hard negative mining
+cache_size: 5000
+cache_update_freq: 1000
+mining_strategy: "hard"
+distance: "euclidean"
+
+# data specific
+data_dir: "/home/warburg/data/"
+dataset: "cub200"
+image_size: 224
+split_query_database: False
+
+# data augmentation
+augmentation:
+  rotation: 10
+  scale: [0.4, 1.0]
+  color_jitter: true
+  horizontal_flip: true
+
+# optimizer
+optimizer:
+  name: "adam"
+  lr_scheduler: "exponential"
+  lr_gamma: 0.99 
