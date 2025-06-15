@@ -22,31 +22,56 @@ class ImageRetrievalDataModule(pl.LightningDataModule):
         self.workers = workers
 
     def setup(self, stage="fit"):
-
         if self.dataset == "mnist":
             from datasets.mnist import TrainDataset, TestDataset
+            if stage == "fit":
+                self.train_dataset = TrainDataset(self.data_dir)
+                self.val_dataset = TestDataset(self.data_dir)
+            elif stage == "test":
+                self.test_dataset = TestDataset(self.data_dir)
+
         elif self.dataset == "fashionmnist":
             from datasets.fashionmnist import TrainDataset, TestDataset
             from datasets.mnist import TestDataset as OODDataset
+            if stage == "fit":
+                self.train_dataset = TrainDataset(self.data_dir)
+                self.val_dataset = TestDataset(self.data_dir)
+            elif stage == "test":
+                self.test_dataset = TestDataset(self.data_dir)
+            self.ood_dataset = OODDataset(self.data_dir)
+
         elif self.dataset == "cifar10":
             from datasets.cifar10 import TrainDataset, TestDataset
             from datasets.svhn import TestDataset as OODDataset
+            if stage == "fit":
+                self.train_dataset = TrainDataset(self.data_dir)
+                self.val_dataset = TestDataset(self.data_dir)
+            elif stage == "test":
+                self.test_dataset = TestDataset(self.data_dir)
+            if self.dataset in ("cifar10", "svhn"):
+                self.ood_dataset = OODDataset(self.data_dir)
+
         elif self.dataset == "cub200":
             from datasets.cub200 import TrainDataset, TestDataset
             from datasets.cars196 import TestDataset as OODDataset
+            if stage == "fit":
+                self.train_dataset = TrainDataset(self.data_dir)
+                self.val_dataset = TestDataset(self.data_dir)
+            elif stage == "test":
+                self.test_dataset = TestDataset(self.data_dir)
+            if self.dataset in ("cub200", "cars196"):
+                self.ood_dataset = OODDataset(self.data_dir)
+
         elif self.dataset == "lfw":
             from datasets.lfw import TrainDataset, TestDataset
             from datasets.cub200 import TestDataset as OODDataset
-
-        if stage == "fit":
-            self.train_dataset = TrainDataset(self.data_dir)
-            self.val_dataset = TestDataset(self.data_dir)
-
-        elif stage == "test":
-            self.test_dataset = TestDataset(self.data_dir)
-
-        if self.dataset in ("fashionmnist", "cub200", "cifar10", "lfw"):
-            self.ood_dataset = OODDataset(self.data_dir)
+            if stage == "fit":
+                self.train_dataset = TrainDataset(self.data_dir)
+                self.val_dataset = TestDataset(self.data_dir)
+            elif stage == "test":
+                self.test_dataset = TestDataset(self.data_dir)
+            if self.dataset in ("lfw", "cub200"):
+                self.ood_dataset = OODDataset(self.data_dir)
 
     def train_dataloader(self):
         return DataLoader(
